@@ -2,12 +2,32 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>Countries Search</title>
+    <title>Country Search</title>
     <link rel="stylesheet" href="/css/main.css">
+    <!-- Use Roboto Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+    <!-- Use jQuery -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
   </head>
+
   <body>
     <script src="/js/app.js"></script>
-  	<h1>Country Search Template</h1>
-  	<p>This is here to get you started.</p>
+      <h1>Country Search</h1>
+      <input type="text" id="searchInput" name="searchInput" placeholder="Search by country name or code...">
+      <button onclick="callCountrySearch($('#searchInput').val())">Submit!</button><br/>
+    <div class="output">
+      <br><br>
+      <table></table>
+    </div>
+    <div class="buffer">
+    </div>
+    <div class="footer">
+      <div id="count"></div>
+      <div id="regions"></div>
+      <div id="subregions"></div>
+    </div>
+
   </body>
 </html>

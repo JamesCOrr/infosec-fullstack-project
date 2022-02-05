@@ -1,3 +1,39 @@
-/*
-This css file is a placeholder. Use this or roll your own, choice is yours.
-*/
+body {
+    text-align: center;
+    font-family: Roboto,arial,sans-serif;
+    height: 100%;
+}
+table, th, td {
+    border: 1px solid black;
+}
+th {
+    font-size: larger;
+}
+tr {
+    text-align: left;
+}
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+#searchInput {
+    width: 250px;
+}
+
+.output{
+    display: grid;
+}
+.footer {
+    position:fixed;
+    width:100%;
+    background:lightsteelblue;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: 0;
+    padding: 1rem;
+    text-align: left;
+}
+.buffer {
+    height: 200px;
+}
