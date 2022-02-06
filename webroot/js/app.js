@@ -1,6 +1,7 @@
 //Write your javascript here, or roll your own. It's up to you.
 //Make your ajax call to http://localhost:8765/api/index.php here
 
+
 function callCountrySearch(input)
 {
     $.ajax({url: "api/index.php",
@@ -8,7 +9,7 @@ function callCountrySearch(input)
             dataType: "json",
             data: { "countryString": input }, 
             success: function (data) {
-                handleData(data);
+                generateView(data);
             },
             error: function(){
                 alert("Search failed with input string: \"" + input + "\"");
@@ -16,15 +17,28 @@ function callCountrySearch(input)
       });
 }
 
-function handleData(json){
-    
-    var count = 0;
+function generateView(json){
+
+    let countryCount = 0;
     var regionDict = {};
     var subRegionDict = {};
 
-    //clear elements before populating
     clearData();
-    
+    buildTable(json, regionDict, subRegionDict);
+    createFooter(regionDict, subRegionDict);
+}
+//clear elements
+function clearData()
+{
+    countryCount = 0;
+    $('table').html("");
+    $('#count').html("");
+    $('#regions').html("");
+    $('#subregions').html("");
+}
+
+function buildTable(json, regionDict, subRegionDict)
+{
     //initialize table header
     var tr;
     tr = $('<tr/>');
@@ -40,7 +54,7 @@ function handleData(json){
 
     //populate table
     for (var i = 0; i < json.length; i++) {
-        count++;
+        countryCount++;
         tr = $('<tr/>');
         tr.append("<td>" + json[i].name.official + "</td>");
         tr.append("<td>" + json[i].cca2 + "</td>");
@@ -63,7 +77,7 @@ function handleData(json){
         else{
             subRegionDict[json[i].subregion] = 1
         }
-        //refactor languages function
+        //populate languages row
         var langs = "";
         for(var key in json[i].languages){
             langs += "\n"+json[i].languages[key];
@@ -71,14 +85,12 @@ function handleData(json){
         tr.append("<td>" + langs + "</td>");                    
         $('table').append(tr);
     }
-
-    createFooter(count, regionDict, subRegionDict);
 }
 
 //write data to footer
-function createFooter(count, regionDict, subRegionDict)
+function createFooter(regionDict, subRegionDict)
 {
-    $("#count").html("<b>Countries: </b>" + count);
+    $("#count").html("<b>Countries: </b>" + countryCount);
     $("#regions").append("<b>Regions: </b>");
     Object.keys(regionDict).forEach(k => {
         $("#regions").append(" " + k + " (" + regionDict[k] + ")");
@@ -89,11 +101,3 @@ function createFooter(count, regionDict, subRegionDict)
     })
 }
 
-//clear elements
-function clearData()
-{
-    $('table').html("");
-    $('#count').html("");
-    $('#regions').html("");
-    $('#subregions').html("");
-}
