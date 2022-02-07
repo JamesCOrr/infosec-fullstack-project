@@ -9,7 +9,12 @@ function callCountrySearch(input) {
             dataType: "json",
             data: { "countryString": input }, 
             success: function (data) {
-                generateView(data);
+                if(data.length == 0) {
+                    alert("Search failed with input string: \"" + input + "\"");
+                }
+                else {
+                    generateView(data);
+                }
             },
             error: function() {
                 alert("Search failed with input string: \"" + input + "\"");
