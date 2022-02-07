@@ -26,7 +26,7 @@ in your submitted project's readme file.
 ## JCO Update 2/6/22
 Updated the following files:
 
-'''
+```
 webroot/index.html
 
 webroot/js/app.js
@@ -34,7 +34,7 @@ webroot/js/app.js
 webroot/css/main.css
 
 webroot/api/index.php
-'''
+```
 
 No changes to instructions to start server.
 
