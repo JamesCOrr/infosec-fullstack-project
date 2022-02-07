@@ -26,6 +26,7 @@ in your submitted project's readme file.
 ## JCO Update 2/6/22
 Updated the following files:
 
+'''
 webroot/index.html
 
 webroot/js/app.js
@@ -33,6 +34,7 @@ webroot/js/app.js
 webroot/css/main.css
 
 webroot/api/index.php
+'''
 
 No changes to instructions to start server.
 
@@ -42,21 +44,17 @@ index.php hits REST API using the following endpoints & userinput:
 
 ```
 https://restcountries.com/v3.1/name/{userInput}
-```
 
-```
 https://restcountries.com/v3.1/name/{userInput}?fullText=true
-```
 
-```
 https://restcountries.com/v3.1/alpha/{userInput}
 ```
 
-index.php merges and sorts the results, and returns them to app.js
+index.php merges and sorts the results, and returns them to app.js.
 
-On success callback, view data is formatted and displayed
+On a successful callback, the view data is formatted and displayed to the end user.
 
-On error callback, an alert is shown to the user with the input string that failed
+On an error callback, an alert is shown to the user with the input string that failed.
 
 Data is displayed in a table, and metadata (countries, regions, subregions) are listed at the bottom of the page
 
