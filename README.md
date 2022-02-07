@@ -40,12 +40,17 @@ HTML form input is passed to index.php via AJAX GET request, triggered by submit
 
 index.php hits REST API using the following endpoints & userinput:
 
+```
 https://restcountries.com/v3.1/name/{userInput}
+```
 
+```
 https://restcountries.com/v3.1/name/{userInput}?fullText=true
+```
 
+```
 https://restcountries.com/v3.1/alpha/{userInput}
-
+```
 
 index.php merges and sorts the results, and returns them to app.js
 
