@@ -27,8 +27,11 @@ in your submitted project's readme file.
 Updated the following files:
 
 webroot/index.html
+
 webroot/js/app.js
+
 webroot/css/main.css
+
 webroot/api/index.php
 
 No changes to instructions to start server.
