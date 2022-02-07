@@ -1,6 +1,8 @@
-//make ajax request to our index.php endpoint
-//on success, generate view
-//on failure, alert the user that their input failed to return results
+/**
+ * Make ajax request to index.php, with user input in html form
+ * Called by onclick event of Submit! button
+ * @param  {string} input The user inputted string to search for country data
+ */
 function callCountrySearch(input) {
     $.ajax({url: "api/index.php",
             type: "GET",
