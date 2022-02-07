@@ -15,7 +15,6 @@ if(isset($_GET['countryString'])) {
         $name_json = null;
     }
 
-    
     //get alpha code endpoint data
     $alpha_url = "https://restcountries.com/v3.1/alpha/";
     $alpha_api_url = $alpha_url . $country_string;
@@ -34,7 +33,6 @@ if(isset($_GET['countryString'])) {
     } catch (Exception $e) {
         $full_name_json = null;
     }
-
 
     //decode data
     $name_json_data = decodeData($name_json);
