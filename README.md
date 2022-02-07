@@ -36,11 +36,9 @@ webroot/css/main.css
 webroot/api/index.php
 ```
 
-No changes to instructions to start server.
+See instructions above to start the server.
 
-HTML form input is passed to index.php via AJAX GET request, triggered by submit button.
-
-index.php hits REST API using the following endpoints & userinput:
+HTML form input is passed to the server via AJAX GET request in app.js, triggered by the submit button. Server hits REST API using the following endpoints & {userInput} string:
 
 ```
 https://restcountries.com/v3.1/name/{userInput}
@@ -50,14 +48,6 @@ https://restcountries.com/v3.1/name/{userInput}?fullText=true
 https://restcountries.com/v3.1/alpha/{userInput}
 ```
 
-index.php merges and sorts the results, and returns them to app.js.
+The data from each endpoint is merged and sorted, then returned to the front end as json. On a successful callback, the view data is formatted and displayed to the end user. On an error callback, an alert is shown to the user with the input string that failed.
 
-On a successful callback, the view data is formatted and displayed to the end user.
-
-On an error callback, an alert is shown to the user with the input string that failed.
-
-Data is displayed in a table, and metadata (countries, regions, subregions) are listed at the bottom of the page
-
-
-
-
+Data is displayed in an HTML table, and metadata (count of countries, regions, and subregions) is listed at the bottom of the page.
