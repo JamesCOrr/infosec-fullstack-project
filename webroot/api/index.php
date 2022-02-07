@@ -1,24 +1,23 @@
 <?php
-
 //catch input in GET Request
-if(isset($_GET['countryString']))
-{
-    $country_string = $_GET['countryString'];
+if(isset($_GET['countryString'])) {
+    //set input string, use rawurlencode to properly handle spaces in full names
+    $country_string = rawurlencode($_GET['countryString']);
     
     //get name endpoint data
     $name_url = "https://restcountries.com/v3.1/name/";
-    $name_api_url = $name_url . rawurlencode($country_string);
+    $name_api_url = $name_url . $country_string;
     $name_json = requestData($name_api_url);
 
     //get alpha code endpoint data
     $alpha_url = "https://restcountries.com/v3.1/alpha/";
-    $alpha_api_url = $alpha_url . rawurlencode($country_string);
+    $alpha_api_url = $alpha_url . $country_string;
     $alpha_json = requestData($alpha_api_url);
 
     //get full name endpoint data
     $full_name_url = "https://restcountries.com/v3.1/name/";
     $url_suffix = "?fullText=true";
-    $full_name_api_url = $full_name_url . rawurlencode($country_string) . $url_suffix;
+    $full_name_api_url = $full_name_url . $country_string . $url_suffix;
     $full_name_json = requestData($full_name_api_url);
 
     //decode data
@@ -38,8 +37,7 @@ if(isset($_GET['countryString']))
     echo $sorted_json;
 }
 
-function requestData($url)
-{
+function requestData($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
@@ -49,18 +47,16 @@ function requestData($url)
 }
 
 //decode data into json, set to null if we receive status code (i.e. failed query)
-function decodeData($json_data)
-{
+function decodeData($json_data) {
     $data = json_decode($json_data);
     if(isset($data->status)){
         $data = null;
     }
     return $data;
-
 }
 
 //branching logic for merging data from each endpoint
-function mergeData($name_json_data, $alpha_json_data, $full_name_json_data){
+function mergeData($name_json_data, $alpha_json_data, $full_name_json_data) {    
     if(isset($name_json_data) && isset($alpha_json_data) && isset($full_name_json_data)){
         $merged_data = array_merge($name_json_data, $alpha_json_data, $full_name_json_data);
     }
