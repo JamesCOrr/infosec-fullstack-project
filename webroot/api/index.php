@@ -1,6 +1,7 @@
 <?php
 //catch input in GET Request
 if(isset($_GET['countryString'])) {
+    
     //set input string, use rawurlencode to properly handle spaces in full names
     $country_string = rawurlencode($_GET['countryString']);
     
@@ -37,6 +38,7 @@ if(isset($_GET['countryString'])) {
     echo $sorted_json;
 }
 
+//execute curl request
 function requestData($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -81,10 +83,8 @@ function mergeData($name_json_data, $alpha_json_data, $full_name_json_data) {
     return $merged_data;
 }
 
-//comparison function for population
+//comparison function for usort by population
 function sortByPop($a, $b) {
     return $b->population <=> $a->population;
 }
 ?>
-
-
