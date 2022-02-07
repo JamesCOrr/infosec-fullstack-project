@@ -1,4 +1,5 @@
 <?php
+
 //catch input in GET Request
 if(isset($_GET['countryString'])) {
     
@@ -38,7 +39,12 @@ if(isset($_GET['countryString'])) {
     echo $sorted_json;
 }
 
-//execute curl request
+/**
+ *
+ * Open and close a curl session and retrieve data from the rest API url
+ * @param string $url The url of the rest API
+ * @return json
+ */
 function requestData($url) {
     $curl = curl_init();
     curl_setopt($curl, CURLOPT_URL, $url);
@@ -48,16 +54,28 @@ function requestData($url) {
     return $data;
 }
 
-//decode data into json, set to null if we receive status code (i.e. failed query)
-function decodeData($json_data) {
-    $data = json_decode($json_data);
+/**
+ *
+ * Decode json data and set to null if we received a status code, then return as an array
+ * @param json $json
+ * @return array
+ */
+function decodeData($json) {
+    $data = json_decode($json);
     if(isset($data->status)){
         $data = null;
     }
     return $data;
 }
 
-//branching logic for merging data from each endpoint
+/**
+ *
+ * Merge arrays of json data from each endpoint iff they are not set to null
+ * @param array $name_json_data The array of data from the name endpoint
+ * @param array $alpha_json_data The array of data from the alpha (character code) endpoint
+ * @param array $full_name_json_data The array of data from the full name endpoint
+ * @return array Merged array
+ */
 function mergeData($name_json_data, $alpha_json_data, $full_name_json_data) {    
     if(isset($name_json_data) && isset($alpha_json_data) && isset($full_name_json_data)){
         $merged_data = array_merge($name_json_data, $alpha_json_data, $full_name_json_data);
@@ -83,7 +101,13 @@ function mergeData($name_json_data, $alpha_json_data, $full_name_json_data) {
     return $merged_data;
 }
 
-//comparison function for usort by population
+/**
+ *
+ * Callback function for usort to sort by population descending
+ * @param object $a first element in comparison
+ * @param object $b second element in comparison
+ * @return int -1, 0, 1 used by usort to determine order of elements in the array based on population comparison
+ */
 function sortByPop($a, $b) {
     return $b->population <=> $a->population;
 }
