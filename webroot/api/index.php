@@ -9,18 +9,32 @@ if(isset($_GET['countryString'])) {
     //get name endpoint data
     $name_url = "https://restcountries.com/v3.1/name/";
     $name_api_url = $name_url . $country_string;
-    $name_json = requestData($name_api_url);
+    try {
+        $name_json = requestData($name_api_url);
+    } catch (Exception $e) {
+        $name_json = null;
+    }
 
+    
     //get alpha code endpoint data
     $alpha_url = "https://restcountries.com/v3.1/alpha/";
     $alpha_api_url = $alpha_url . $country_string;
-    $alpha_json = requestData($alpha_api_url);
+    try {
+        $alpha_json = requestData($alpha_api_url);
+    } catch (Exception $e) {
+        $alpha_json = null;
+    }
 
     //get full name endpoint data
     $full_name_url = "https://restcountries.com/v3.1/name/";
     $url_suffix = "?fullText=true";
     $full_name_api_url = $full_name_url . $country_string . $url_suffix;
-    $full_name_json = requestData($full_name_api_url);
+    try {
+        $full_name_json = requestData($full_name_api_url);
+    } catch (Exception $e) {
+        $full_name_json = null;
+    }
+
 
     //decode data
     $name_json_data = decodeData($name_json);
@@ -29,7 +43,7 @@ if(isset($_GET['countryString'])) {
 
     //merge data
     $merged_data = mergeData($name_json_data, $alpha_json_data, $full_name_json_data);
-    
+
     //deduplicate data & sort
     $deduplicated_data = array_unique($merged_data, SORT_REGULAR);
     usort($deduplicated_data, 'sortByPop');
@@ -50,6 +64,9 @@ function requestData($url) {
     curl_setopt($curl, CURLOPT_URL, $url);
     curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
     $data = curl_exec($curl);
+    if(curl_errno($curl)) {
+        throw new Exception(curl_error($curl));
+    }
     curl_close($curl);
     return $data;
 }
